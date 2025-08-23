@@ -1,0 +1,32 @@
+name: Python Code Quality Checks
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  lock_file:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4.2.2
+      - name: Cache UV dependencies
+        uses: actions/cache@v4.2.4
+        with:
+          path: .venv
+          key: ${{ runner.os }}-uv-${{ hashFiles('uv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-uv-
+
+      - name: Setup Python and UV
+        uses: ./.github/actions/setup
+      - name: Generate/Check Lockfile
+        run: uv lock --locked
+
+  linters:
+    runs-on: ubuntu-22.04
+    needs: [lock_file]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4.2.2
+      - uses: ./.github/actions/run-linters
