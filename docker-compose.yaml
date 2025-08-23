@@ -59,11 +59,11 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
-    environment:
-      - KAFKA_BROKERS=kafka:9092
     ports:
       - "9308:9308"
-    command: ["--kafka.server=kafka:9092", "--web.listen-address=:9308"]
+    command:
+      - "--kafka.server=kafka:29092"
+      - "--web.listen-address=:9308"
     healthcheck:
       test: ["CMD-SHELL", "wget -q --spider http://localhost:9308/metrics || exit 1"]
       interval: 15s
