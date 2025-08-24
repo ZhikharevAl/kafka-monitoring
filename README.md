@@ -1,4 +1,5 @@
 # Мониторинг Kafka
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/ZhikharevAl/kafka-monitoring)
 
 Комплексное решение для мониторинга Apache Kafka с Prometheus, Grafana и Kafdrop для разработки и тестирования.
 
@@ -54,6 +55,13 @@ kafka-topics --create --topic test --bootstrap-server localhost:9092 --partition
 
 ## Архитектура
 
+```mermaid
+flowchart LR
+    kafka[Kafka :9092] --> exporter[Kafka Exporter :9308]
+    exporter --> prometheus[Prometheus :9090]
+    exporter --> kafdrop[Kafdrop :9001]
+    prometheus --> grafana[Grafana :3000]
+```
 
 ## 📊 Мониторинг
 
