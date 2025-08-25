@@ -82,6 +82,9 @@ flowchart LR
 - Детали топиков
 - Метрики брокера
 
+![grafana](/docs/grafana_1.png)
+![grafana](/docs/grafana_2.png)
+
 ## Тестирование
 
 ### Базовые тесты Kafka
